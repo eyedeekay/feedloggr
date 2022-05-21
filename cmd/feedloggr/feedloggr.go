@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math/rand"
 	"os"
+	"time"
 
 	"github.com/lmas/feedloggr/pkg"
 )
@@ -16,6 +18,9 @@ var (
 	example = flag.Bool("example", false, "print example config and exit")
 	test    = flag.Bool("test", false, "test config file and exit")
 )
+
+var app *pkg.App
+var cfg *pkg.Config
 
 func main() {
 	flag.Parse()
@@ -32,10 +37,47 @@ func main() {
 		return // simple exit(0)
 	}
 
-	cfg, err := pkg.LoadConfig(*config)
-	if err != nil {
+	if err := updateRoutine(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+
+	if cfg.ListenAddr != "" {
+		go updateLoop()
+		if err := app.ListenAndServe(); err != nil {
+			exiting = true
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	}
+	exiting = true
+
+}
+
+var exiting = false
+
+func updateLoop() {
+	for {
+		if exiting {
+			break
+		}
+		// get a random number between 6 and 12
+		// sleep for that number of hours
+		// then repeat updateRoutine()
+		hours := 6 + rand.Intn(6)
+		time.Sleep(time.Duration(hours) * time.Hour)
+		if err := updateRoutine(); err != nil {
+			fmt.Println(err)
+			break
+		}
+	}
+}
+
+func updateRoutine() (err error) {
+	cfg, err = pkg.LoadConfig(*config)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 	if *test {
@@ -49,23 +91,16 @@ func main() {
 		cfg.Verbose = true
 	}
 
-	app, err := pkg.New(cfg)
+	app, err = pkg.New(cfg)
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		return
 	}
 
 	err = app.Update()
 	if err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		return
 	}
-
-	if cfg.ListenAddr != "" {
-		err = app.ListenAndServe()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-	}
+	return nil
 }
