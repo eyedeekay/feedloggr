@@ -123,7 +123,7 @@ func (app *App) proxySet(u string) (io.Closer, error) {
 		app.feedParser.Client.Transport = tr
 		return sam, nil
 	}
-	if strings.HasSuffix(Url.Hostname(), ".onion") {
+	if strings.HasSuffix(Url.Hostname(), ".onion") || app.Config.ListenAddr == "onion" || app.Config.ListenAddr == "i2p" {
 		if tmp, torerr := net.Listen("tcp", "127.0.0.1:9050"); torerr != nil {
 			fmt.Println("Onion hostname, using Tor:", torerr)
 			t, err := tor.Start(context.Background(), nil)

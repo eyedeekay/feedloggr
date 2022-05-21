@@ -1,1 +1,4 @@
 .feedloggr3.conf
+*.private
+feedloggr
+feeds
