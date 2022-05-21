@@ -1,12 +1,15 @@
 package pkg
 
 import (
+	"fmt"
 	"html/template"
 	"log"
+	"net"
 	"net/http"
 	"path/filepath"
 	"time"
 
+	sam "github.com/eyedeekay/sam3/helper"
 	"github.com/mmcdole/gofeed"
 	boom "github.com/tylertreat/BoomFilters"
 )
@@ -102,4 +105,34 @@ func (app *App) Update() error {
 		return err
 	}
 	return nil
+}
+
+func (app *App) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	path := filepath.Join(app.Config.OutputPath, r.URL.Path)
+	http.ServeFile(w, r, path)
+}
+
+func (app *App) Serve(l net.Listener) error {
+	app.Log("Serving on %s", l.Addr())
+	return http.Serve(l, app)
+}
+
+func (app *App) ListenAndServe() error {
+	switch app.Config.ListenAddr {
+	case "onion":
+		return fmt.Errorf("Onion not implemented yet, check back later.")
+	case "i2p":
+		l, err := sam.I2PListener("feedloggr", "127.0.0.1:7656", "feedloggr")
+		if err != nil {
+			return err
+		}
+		return app.Serve(l)
+	default:
+		l, err := net.Listen("tcp", app.Config.ListenAddr)
+		if err != nil {
+			return err
+		}
+		return app.Serve(l)
+	}
+	return fmt.Errorf("unsupported listen address", app.Config.ListenAddr)
 }

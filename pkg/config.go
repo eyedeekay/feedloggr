@@ -11,6 +11,7 @@ type Config struct {
 	OutputPath string
 	Timeout    int // In seconds
 	Feeds      map[string]string
+	ListenAddr string
 }
 
 func (c *Config) String() string {

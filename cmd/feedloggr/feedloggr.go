@@ -60,4 +60,12 @@ func main() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+
+	if cfg.ListenAddr != "" {
+		err = app.ListenAndServe()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	}
 }
