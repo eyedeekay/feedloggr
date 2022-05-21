@@ -151,7 +151,6 @@ func (app *App) proxySet(u string) (io.Closer, error) {
 	case -1:
 		return nil, nil
 	case 0:
-		// use an HTTP proxy as the DefaultClient.Transport
 		Url, err := url.Parse(envProxy)
 		if err != nil {
 			return nil, err
@@ -160,7 +159,6 @@ func (app *App) proxySet(u string) (io.Closer, error) {
 			Proxy: http.ProxyURL(Url),
 		}
 	case 1:
-		// use an SOCKS5 proxy as the DefaultClient.Transport
 		Url, err := url.Parse(envProxy)
 		if err != nil {
 			return nil, err
