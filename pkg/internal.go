@@ -132,7 +132,7 @@ func (app *App) proxySet(u string) (io.Closer, error) {
 					return nil, err
 				}
 			}
-			dialCtx, _ := context.WithTimeout(context.Background(), time.Minute)
+			dialCtx, _ := context.WithTimeout(context.Background(), time.Second*time.Duration(app.Config.Timeout))
 			dialer, err := t.Dialer(dialCtx, nil)
 			if err != nil {
 				return nil, err

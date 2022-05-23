@@ -13,6 +13,7 @@ import (
 var (
 	verbose = flag.Bool("verbose", false, "run in verbose mode")
 	config  = flag.String("config", ".feedloggr3.conf", "path to config file")
+	dir     = flag.String("dir", "", "path to directory to store output files(overrides the config file)")
 
 	version = flag.Bool("version", false, "print version and exit")
 	example = flag.Bool("example", false, "print example config and exit")
@@ -33,6 +34,9 @@ func main() {
 
 	if *example {
 		cfg := pkg.NewConfig()
+		if *dir != "" {
+			cfg.OutputPath = *dir
+		}
 		fmt.Println(cfg)
 		return // simple exit(0)
 	}
@@ -79,6 +83,10 @@ func updateRoutine() (err error) {
 		fmt.Println(err)
 		return
 	}
+	if *dir != "" {
+		cfg.OutputPath = *dir
+	}
+	os.MkdirAll(cfg.OutputPath, 0755)
 
 	if *test {
 		fmt.Println(cfg)

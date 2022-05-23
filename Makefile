@@ -48,7 +48,7 @@ feedloggr-plugin: res
 		-exename=feedloggr-$(GOOS) \
 		-website="http://idk.i2p/blizzard/" \
 		-updateurl=http://idk.i2p/blizzard/feedloggr-$(GOOS).su3 \
-		-command="feedloggr-$(GOOS) -config \$$PLUGIN/anon-feedloggr.conf" \
+		-command="feedloggr-$(GOOS) -config \$$PLUGIN/anon-feedloggr.conf -dir \\$I2P/eepsite/docroot/rss" \
 		-license=MIT \
 		-res=tmp/
 	unzip -o feedloggr-$(GOOS).zip -d feedloggr-$(GOOS)-zip
