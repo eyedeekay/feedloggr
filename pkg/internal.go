@@ -199,6 +199,9 @@ func (app *App) updateAllFeeds(feeds map[string]string) []Feed {
 	for title, url := range feeds {
 		closer, err := app.proxySet(url)
 		if err != nil {
+			if closer != nil {
+				closer.Close()
+			}
 			fmt.Println("Error setting up proxy:", err)
 			continue
 		}

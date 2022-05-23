@@ -1,4 +1,8 @@
 .feedloggr3.conf
 *.private
+feedloggr-*
 feedloggr
+data-dir*
 feeds
+plugin
+

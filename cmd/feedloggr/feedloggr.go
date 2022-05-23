@@ -61,10 +61,10 @@ func updateLoop() {
 		if exiting {
 			break
 		}
-		// get a random number between 6 and 12
+		// get a random number between 24 and 48
 		// sleep for that number of hours
 		// then repeat updateRoutine()
-		hours := 6 + rand.Intn(6)
+		hours := 24 + rand.Intn(24)
 		time.Sleep(time.Duration(hours) * time.Hour)
 		if err := updateRoutine(); err != nil {
 			fmt.Println(err)
