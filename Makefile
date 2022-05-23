@@ -1,7 +1,7 @@
 GO111MODULE=on
-REPO_NAME=blizzard
+REPO_NAME=feedloggr
 USER_GH=eyedeekay
-VERSION=0.0.45
+VERSION=0.0.48
 PWD=`pwd`
 
 ARG=-v -tags netgo,osusergo -ldflags '-w -s -extldflags "-static"'
@@ -40,15 +40,15 @@ feedloggr-plugin: res
 		-author=hankhill19580@gmail.com \
 		-autostart=true \
 		-clientname=feedloggr-$(GOOS) \
-		-consolename="feedloggr Donor" \
-		-consoleurl="http://127.0.0.1:7676" \
+		-consolename="feedloggr RSS feed" \
+		-consoleurl="http://127.0.0.1:7681" \
 		-icondata="icon/icon.png" \
 		-delaystart="1" \
 		-desc="`cat desc`" \
 		-exename=feedloggr-$(GOOS) \
-		-website="http://idk.i2p/blizzard/" \
-		-updateurl=http://idk.i2p/blizzard/feedloggr-$(GOOS).su3 \
-		-command="feedloggr-$(GOOS) -config \$$PLUGIN/anon-feedloggr.conf -dir \\$I2P/eepsite/docroot/rss" \
+		-website="http://idk.i2p/feedloggr/" \
+		-updateurl=http://idk.i2p/feedloggr/feedloggr-$(GOOS).su3 \
+		-command="feedloggr-$(GOOS) -config \$$PLUGIN/anon-feedloggr.conf -dir \$$I2P/eepsite/docroot/rss" \
 		-license=MIT \
 		-res=tmp/
 	unzip -o feedloggr-$(GOOS).zip -d feedloggr-$(GOOS)-zip
