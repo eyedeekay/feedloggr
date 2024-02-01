@@ -4,140 +4,184 @@
       feedloggr v3.0
     </title>
     <meta name="author" content="eyedeekay" />
-    <meta name="description" content="feedloggr.git" />
+    <meta name="description" content="feedloggr" />
     <meta name="keywords" content="master" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="showhider.css" />
+    <link rel="stylesheet" type="text/css" href="darklight.css" />
   </head>
   <body>
-    <div id="navbar">
-      <a href="#shownav">
-        Show navigation
-      </a>
-      <div id="shownav">
-        <div id="hidenav">
-          <ul>
-            <li>
-              <a href="index.html">
-                index
-              </a>
-            </li>
-          </ul>
-          <br>
-          <a href="#hidenav">
-            Hide Navigation
-          </a>
+    <input type="checkbox" id="checkboxDarkLight">
+    <div class="container">
+      <div id="navbar">
+        <a href="#shownav">
+          Show navigation
+        </a>
+        <div id="shownav">
+          <div id="hidenav">
+            <ul>
+              <li>
+                <a href="..">
+                  Up one level ^
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index
+                </a>
+              </li>
+              <li>
+                <a href="docs/index.html">
+                  docs/index.html
+                </a>
+              </li>
+              <li>
+                <a href="index.html">
+                  index.html
+                </a>
+              </li>
+              <li>
+                <a href="docs/2022-05-23.html">
+                  docs/2022-05-23.html
+                </a>
+              </li>
+              <li>
+                <a href="docs/index.html">
+                  docs/index.html
+                </a>
+              </li>
+            </ul>
+            <br>
+            <a href="#hidenav">
+              Hide Navigation
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <h1>
-      <a href="/">
+      <a id="returnhome" href="/">
+        /
+      </a>
+      <h1>
         feedloggr v3.0
-      </a>
-    </h1>
-    <p>
-      Collect news from your favorite RSS/Atom feeds and generate simple and static
-      web pages to browse the news in.
-    </p>
-    <h2>
-      Status
-    </h2>
-    <p>
-      The project is now in beta stage and being actively used at
-      <a href="https://lmas.se/news" rel="nofollow">
-        https://lmas.se/news
-      </a>
-    </p>
-    <h2>
-      Installation
-    </h2>
-    <pre><code>go install github.com/lmas/feedloggr
+      </h1>
+      <p>
+        Collect news from your favorite RSS/Atom feeds and generate simple and static
+        web pages to browse the news in.
+      </p>
+      <h2>
+        Status
+      </h2>
+      <p>
+        The project is now in beta stage and being actively used at
+        <a href="https://lmas.se/news">
+          https://lmas.se/news
+        </a>
+      </p>
+      <h2>
+        Installation
+      </h2>
+      <pre><code>go install github.com/lmas/feedloggr
 </code></pre>
-    <h2>
-      Usage
-    </h2>
-    <p>
-      For a list of available flags and commands:
-    </p>
-    <pre><code>feedloggr -h
+      <h2>
+        Usage
+      </h2>
+      <p>
+        For a list of available flags and commands:
+      </p>
+      <pre><code>feedloggr -h
 </code></pre>
-    <p>
-      You can create a new config file by running:
-    </p>
-    <pre><code>feedloggr -example &gt; .feedloggr3.conf
+      <p>
+        You can create a new config file by running:
+      </p>
+      <pre><code>feedloggr -example &gt; .feedloggr3.conf
 </code></pre>
-    <p>
-      You should then edit
-      <code>
-        .feedloggr3.conf
-      </code>
-      and add in your RSS/Atom feeds.
-      The format of the config is
-      <a href="https://github.com/toml-lang/toml" rel="nofollow">
-        TOML
-      </a>
-      .
-    </p>
-    <p>
-      When you’re done editting the config, you can test it and make sure there’s no
-      errors in it:
-    </p>
-    <pre><code>feedloggr -test
+      <p>
+        You should then edit
+        <code>
+          .feedloggr3.conf
+        </code>
+        and add in your RSS/Atom feeds.
+        The format of the config is
+        <a href="https://github.com/toml-lang/toml">
+          TOML
+        </a>
+        .
+      </p>
+      <p>
+        When you&rsquo;re done editting the config, you can test it and make sure there&rsquo;s no
+        errors in it:
+      </p>
+      <pre><code>feedloggr -test
 </code></pre>
-    <p>
-      If no errors are shown, you’re good to go.
-    </p>
-    <p>
-      Now that you have a working config, it’s time to start collect news from your
-      feeds and create a new web page showing all the collected news:
-    </p>
-    <pre><code>feedloggr
+      <p>
+        If no errors are shown, you&rsquo;re good to go.
+      </p>
+      <p>
+        Now that you have a working config, it&rsquo;s time to start collect news from your
+        feeds and create a new web page showing all the collected news:
+      </p>
+      <pre><code>feedloggr
 </code></pre>
-    <p>
-      When it’s done you should be able to browse the newly generated pages, found
-      inside the output directory that was specified in the config file.
-    </p>
-    <h2>
-      Configuration
-    </h2>
-    <pre><code>Verbose = true | false
+      <p>
+        When it&rsquo;s done you should be able to browse the newly generated pages, found
+        inside the output directory that was specified in the config file.
+      </p>
+      <h2>
+        Configuration
+      </h2>
+      <pre><code>Verbose = true | false
 </code></pre>
-    <p>
-      Show verbose logs while running. Default to false.
-    </p>
-    <pre><code>OutputPath = &#34;/path/to/dir&#34;
+      <p>
+        Show verbose logs while running. Default to false.
+      </p>
+      <pre><code>OutputPath = &quot;/path/to/dir&quot;
 </code></pre>
-    <p>
-      Path to directory where new pages will be stored in.
-    </p>
-    <pre><code>Timeout = seconds
+      <p>
+        Path to directory where new pages will be stored in.
+      </p>
+      <pre><code>Timeout = seconds
 </code></pre>
-    <p>
-      Read timeout when sending HTTP GET requests, when updating the feeds.
-    </p>
-    <pre><code>[Feeds]
-&#34;Example&#34; = &#34;https://example.com/rss&#34;
-&#34;Example2&#34; = &#34;https://somewhereelse.com/rss&#34;
+      <p>
+        Read timeout when sending HTTP GET requests, when updating the feeds.
+      </p>
+      <pre><code>[Feeds]
+&quot;Example&quot; = &quot;https://example.com/rss&quot;
+&quot;Example2&quot; = &quot;https://somewhereelse.com/rss&quot;
 </code></pre>
-    <p>
-      List of RSS/Atom feeds,
-      <code>
-        feedloggr
-      </code>
-      tries to download the feeds from the URLs.
-    </p>
-    <h2>
-      License
-    </h2>
-    <p>
-      MIT License, see LICENSE.
-    </p>
-    <div>
-      <a href="#show">
-        Show license
-      </a>
-      <div id="show">
-        <div id="hide">
-          <pre><code>The MIT License (MIT)
+      <p>
+        List of RSS/Atom feeds,
+        <code>
+          feedloggr
+        </code>
+        tries to download the feeds from the URLs.
+      </p>
+      <h2>
+        License
+      </h2>
+      <p>
+        MIT License, see LICENSE.
+      </p>
+      <div id="sourcecode">
+        <span id="sourcehead">
+          <strong>
+            Get the source code:
+          </strong>
+        </span>
+        <ul>
+          <li>
+            <a href="https://github.com/eyedeekay/feedloggr.git">
+              Source Repository: (https://github.com/eyedeekay/feedloggr.git)
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="#show">
+          Show license
+        </a>
+        <div id="show">
+          <div id="hide">
+            <pre><code>The MIT License (MIT)
 
 Copyright (c) 2016 A. Svensson
 
@@ -159,9 +203,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 </code></pre>
-          <a href="#hide">
-            Hide license
-          </a>
+            <a href="#hide">
+              Hide license
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -170,6 +215,7 @@ SOFTWARE.
     </div>
     <div>
       <a href="https://geti2p.net/">
+        <img class="i2plogo" src="i2plogo.png"></img>
         I2P
       </a>
     </div>
